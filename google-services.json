@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "324075263675",
+    "firebase_url": "https://gkblog-56c42.firebaseio.com",
+    "project_id": "gkblog-56c42",
+    "storage_bucket": "gkblog-56c42.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:324075263675:android:5f7ea58513aa5e6d39bb9e",
+        "android_client_info": {
+          "package_name": "com.android.gk"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "324075263675-sqn30fui6h3vm3ijdi3jqv1u5lbp7ate.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.android.gk",
+            "certificate_hash": "a4eac948e8d0359270f2fa5291d246263eee4700"
+          }
+        },
+        {
+          "client_id": "324075263675-33sss7e17r5i3udsteonlg9j0p3l3f81.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBPONJmsM5PpicYBh1OPoSaNt9XpF71aKk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "324075263675-33sss7e17r5i3udsteonlg9j0p3l3f81.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

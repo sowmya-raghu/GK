@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/mainContent"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@android:color/white"
+    tools:context=".SliderItemFragment"
+    >
+  <TextView
+      android:id="@+id/titleTextKannada"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      app:layout_constraintBottom_toBottomOf="parent"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toTopOf="parent"
+      app:layout_constraintVertical_bias="0.1"
+      app:layout_constraintBottom_toTopOf="@+id/titleText"
+      android:layout_marginTop="36dp"
+      android:layout_marginLeft="39.5dp"
+      android:layout_marginRight="39.5dp"
+      android:text="ಗುಬ್ಬಿ ಕಲರವ "
+      android:textSize="36sp"
+      android:textColor="@color/colorPrimaryDark"
+      android:textStyle="italic"
+      android:textAlignment="center"/>
+  <TextView
+      android:id="@+id/titleText"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      app:layout_constraintBottom_toBottomOf="parent"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toTopOf="parent"
+      app:layout_constraintVertical_bias="0.1"
+      app:layout_constraintBottom_toTopOf="@+id/imageLayout"
+      android:layout_marginTop="86dp"
+      android:layout_marginLeft="39.5dp"
+    android:layout_marginRight="39.5dp"
+      android:text="Gubbi Kalarava"
+      android:textSize="36sp"
+      android:textColor="@color/colorPrimaryDark"
+      android:textStyle="italic"
+      android:textAlignment="center"/>
+
+  <LinearLayout
+      android:id="@+id/imageLayout"
+      android:layout_width="380dp"
+      android:layout_height="420dp"
+      app:layout_constraintVertical_bias="0.26"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toBottomOf="@+id/titleText"
+      android:layout_marginTop="52dp"
+      android:layout_marginLeft="24dp"
+      android:layout_marginRight="24dp">
+  <ImageView
+      android:id="@+id/imageView"
+      android:layout_width="360dp"
+      android:layout_height="400dp"
+      tools:src="@tools:sample/avatars"
+      android:layout_gravity="center"
+      android:layout_marginLeft="20dp"
+      android:layout_marginRight="20dp"
+      />
+  </LinearLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
