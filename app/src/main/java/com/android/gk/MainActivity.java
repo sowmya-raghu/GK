@@ -13,8 +13,12 @@ import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
+import android.widget.Toast;
 
+import com.android.gk.Common.common;
 import com.google.android.material.tabs.TabLayout;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
 import java.util.Timer;
 import java.util.TimerTask;
@@ -24,6 +28,8 @@ public class MainActivity extends AppCompatActivity {
     private Button button;
     private SliderPagerAdapter adapter;
     int mcount;
+
+    FirebaseAuth firebaseAuth;
 
     int currentPage = 0;
     Timer timer;
@@ -48,6 +54,8 @@ public class MainActivity extends AppCompatActivity {
         TabLayout tabLayout = findViewById(R.id.tabs);
         button = findViewById(R.id.button);
 
+        firebaseAuth = FirebaseAuth.getInstance();
+
         // init slider pager adapter
         adapter = new SliderPagerAdapter(getSupportFragmentManager(),
                 FragmentPagerAdapter.BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT);
@@ -61,11 +69,29 @@ public class MainActivity extends AppCompatActivity {
         // make status bar transparent
         changeStatusBarColor();
 
+        FirebaseUser user = firebaseAuth.getCurrentUser();
+
+
+        if (user != null) {
+            String usrEmail = user.getEmail();
+            common.currentUser = usrEmail;
+
+            common.currentUserId = firebaseAuth.getUid();
+
+
+            Toast.makeText(MainActivity.this, "User logged in ", Toast.LENGTH_SHORT).show();
+            Intent I = new Intent(MainActivity.this, HomeActivity.class);
+            startActivity(I);
+        } else {
+
+        }
+
+
         button.setOnClickListener(new View.OnClickListener() {
             @Override public void onClick(View view) {
 
-               // Intent i = new Intent(MainActivity.this, LoginActivity.class);
-                //startActivity(i);
+                Intent i = new Intent(MainActivity.this, LoginActivity.class);
+                startActivity(i);
 
             }
         });

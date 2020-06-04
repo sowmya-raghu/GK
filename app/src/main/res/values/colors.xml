@@ -7,4 +7,6 @@
     <color name="colorSecondary">#fff8e1</color>
     <color name="colorSecondaryDark">#ccc5af</color>
     <color name="colorWhite">#ffffff</color>
+
+    <color name="overlayBackground">#7f333639</color>
 </resources>

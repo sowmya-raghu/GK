@@ -1,3 +1,8 @@
 <resources>
     <string name="app_name">GK</string>
+    <string name="home_page_title">Pkl Writes</string>
+
+    <string name="facebook_application_id">576753649711942</string>
+    <string name="fb_login_protocol_scheme">fb576753649711942</string>
+
 </resources>

@@ -16,6 +16,8 @@ import androidx.annotation.RequiresApi;
 import androidx.annotation.StringRes;
 import androidx.fragment.app.Fragment;
 
+import com.squareup.picasso.Picasso;
+
 public class SliderItemFragment extends Fragment {
 
   private static final String ARG_POSITION = "slider-position";
@@ -82,10 +84,13 @@ public class SliderItemFragment extends Fragment {
     view.setBackground(requireActivity().getDrawable(BG_IMAGE[position]));
 
     ImageView imageView = view.findViewById(R.id.imageView);
+    //Picasso.with(getBaseContext()).load(post.getPostImage()).transform(new RoundedTransformation(20, 0)).into(publishedPostViewHolder.txtPostImage);
 
 
     // set page image
-    imageView.setImageResource(PAGE_IMAGE[position]);
+    Picasso.with(getContext()).load(PAGE_IMAGE[position]).transform(new RoundedTransformation(40,0)).into(imageView);
+
+
    // imageView.setBackgroundResource(R.drawable.roundedcorner);
   }
 }
