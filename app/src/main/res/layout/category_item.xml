@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/card"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginLeft="24dp"
+    android:layout_marginRight="24dp"
+    app:cardElevation="4dp"
+    android:layout_marginTop="24dp"
+    android:clickable="true"
+    android:focusable="true"
+    app:cardCornerRadius="18dp"
+    app:strokeWidth="1dp"
+    app:strokeColor="@color/colorPrimaryDark">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="5dp">
+
+        <!-- Media -->
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="150dp"
+            android:id="@+id/category_image"
+            android:layout_gravity="center"
+            android:scaleType="centerCrop"
+            android:contentDescription="category"
+            />
+
+            <!-- Title, secondary and supporting text -->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/category_title"
+                android:text="title"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="10dp"
+                android:textColor="@color/colorPrimaryDark"
+                android:textAppearance="?attr/textAppearanceHeadline6"
+                />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/category_desc"
+                android:layout_marginTop="10dp"
+                android:layout_marginLeft="10dp"
+                android:text="description"
+                android:textSize="12sp"
+                android:textColor="@color/overlayBackground"
+                />
+
+
+            <com.google.android.material.button.MaterialButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:layout_marginBottom="16dp"
+                android:layout_marginLeft="10dp"
+                android:id="@+id/explore_category"
+                android:text="Explore"
+                android:textSize="20sp"
+                android:fontFamily="sans-serif-medium"
+                android:textColor="@color/colorPrimaryDark"
+                style="?attr/borderlessButtonStyle"
+                />
+
+
+    </LinearLayout>
+
+</com.google.android.material.card.MaterialCardView>

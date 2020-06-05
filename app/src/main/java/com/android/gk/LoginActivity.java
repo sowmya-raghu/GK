@@ -133,6 +133,8 @@ public class LoginActivity extends AppCompatActivity {
                                 mDialog.dismiss();
 
                             } else {
+                                FirebaseUser users = firebaseAuth.getCurrentUser();
+                                common.currentUser = users.getDisplayName();
                                 fromDb = FirebaseDatabase.getInstance().getReference().child("User");
                                 Query query = fromDb.orderByChild("email").equalTo(loginEmailId.getEditText().getText().toString());
                                 query.addListenerForSingleValueEvent(new ValueEventListener() {
