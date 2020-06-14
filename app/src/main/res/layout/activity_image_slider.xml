@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+<androidx.viewpager.widget.ViewPager xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:id="@+id/view_image_page"
+    android:background="#000000"
+    tools:context=".ImageSlider">
+</androidx.viewpager.widget.ViewPager>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/relativeImage"
+        android:layout_alignLeft="@+id/view_image_page"
+        android:layout_alignTop="@+id/view_image_page"
+        android:layout_alignBottom="@+id/view_image_page"
+        android:layout_alignRight="@+id/view_image_page"
+        android:layout_alignParentBottom="true">
+    <CheckBox
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/like_image"
+        android:visibility="visible"
+        android:layout_alignParentBottom="true"
+        android:text="Like"
+        android:layout_marginLeft="30dp"
+        app:iconTint="@color/colorPrimaryDark"
+        app:icon="@drawable/ic_favorite_border_black_24dp"
+        style="@style/Widget.MaterialComponents.Button.TextButton"/>
+        <com.google.android.material.button.MaterialButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/save_image"
+            android:visibility="visible"
+            android:layout_alignParentBottom="true"
+            android:layout_toRightOf="@+id/like_image"
+            android:text="Save"
+            android:layout_marginLeft="50dp"
+            app:iconTint="@color/colorPrimaryDark"
+            app:icon="@drawable/ic_file_download_black_24dp"
+            style="@style/Widget.MaterialComponents.Button.TextButton"/>
+        <com.google.android.material.button.MaterialButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/share_image"
+            android:visibility="visible"
+            android:layout_alignParentBottom="true"
+            android:layout_marginLeft="50dp"
+            android:text="Share"
+            android:layout_toRightOf="@+id/save_image"
+            app:iconTint="@color/colorPrimaryDark"
+            app:icon="@drawable/ic_share_black_24dp"
+            style="@style/Widget.MaterialComponents.Button.TextButton"/>
+    </RelativeLayout>
+</RelativeLayout>

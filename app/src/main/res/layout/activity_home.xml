@@ -35,7 +35,155 @@
                 </com.google.android.material.appbar.MaterialToolbar>
             </com.google.android.material.appbar.AppBarLayout>
 
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
 
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="60dp"
+                    android:layout_marginLeft="16dp"
+                    android:layout_marginRight="16dp"
+                    android:layout_marginBottom="16dp"
+                    android:orientation="vertical"
+                    android:background="@drawable/custom_border">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="10dp"
+                        android:gravity="center"
+                        android:text="ಹಕ್ಕಿಗಳ ಕಲರವ"
+                        android:textSize="16sp"
+                        android:textStyle="bold"
+                        android:textColor="@color/colorPrimaryDark"/>
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="10dp"
+                        android:textStyle="italic"
+                        android:text="ಮನುಷ್ಯನ ವ್ಯಕ್ತಿತ್ವದ ಭಿನ್ನ ಮುಖಗಳು ಒಂದು ರೀತಿಯಲ್ಲಿ ಹಲವಾರು ಹಕ್ಕಿಗಳ ಸಮುಚ್ಚಯದ ಪಕ್ಷಿಧಾಮವಿದ್ದಂತೆ.
+ಈ ಮನಸ್ಸಿನಲ್ಲಿ ಅವಕಾಶಕ್ಕೆ ಹೊಂಚುಹಾಕಿ ಕಾಯುವ ಹದ್ದಿನ ಗುಣವಿದೆ.
+ಹಲವಾರು ಅನಗತ್ಯ ಚಿಂತೆಗಳ ಕರ್ಕಶ ಕೂಗಿನ ಕಾಗೆಯ ಗುಣವಿದೆ.
+ಬದುಕಿನ ಸಂತೋಷದ ಪಂಚಮ ಸ್ವರವನ್ನರಿಸಿ ಹಾಡುವ ಕೋಗಿಲೆಯ ಗುಣವಿದೆ.
+ಹೇಳಿಕೊಟ್ಟದ್ದನ್ನು ಬಾಯಿಪಾಠ ಮಾಡಿ ಒಪ್ಪಿಸುವ ಗಿಳಿಯಂತೆ, ಸಮಾಜ ನಿರ್ಧೇಶಿಸಿದ ಪಾಠವನ್ನು ಶಿಸ್ತಿನಿಂದ ಕಲಿತು ಒಪ್ಪಿಸುವ ಗುಣವಿದೆ.
+ಮರದ ಕೊಂಬೆಗೆ ಜೋತುಬಿದ್ದ ಗೂಡಿನಲ್ಲಿ ಬದುಕುವ ಗೀಜಗದ ಹಕ್ಕಿಯಂತೆ, ಹಳೆಯ ನೆನಪುಗಳ ಗೂಡಿಗೆ ಜೋತುಬೀಳುವ ಗುಣವೂ ಇದೆ.
+ಇವೆಲ್ಲದರ ನಡುವೆ....
+ಮನೆಯ ಮೂಲೆಯಲ್ಲೆಲ್ಲೊ ತನ್ನ ಪಾಡಿಗೆ ಗೂಡು ಕಟ್ಟಿಕೊಂಡು , ಜನರ ನಡುವೆಯೆ ಇದ್ದರೂ ಹೆದರಿಕೆಯಿಂದ ಅಡಗಿ ಬದುಕುವ ಗುಬ್ಬಚ್ಚಿಯಂತೆ, ನಮ್ಮ ಆಂತರ್ಯದಲ್ಲಿ ಸುಪ್ತವಾಗಿ ಅಡಗಿ ಕುಳಿತ ನಮ್ಮ ಸೂಕ್ಷ್ಮ ಸಂವೇದನೆಗಳ ಗೂಡು ಕಟ್ಟುವ ಗುಬ್ಬಚ್ಚಿಯ ಗುಣವೂ ಇದೆ.
+ಈ ಎಲ್ಲ ಹಕ್ಕಿಗಳ ಕಲರವವು ಅಭಿವ್ಯಕ್ತಿಗೊಂಡು ಅಕ್ಷರ ರೂಪ ತಳೆದರೆ?
+ಈ ಪ್ರಶ್ನೆಗೆ ಉತ್ತರ ಕಂಡುಕೊಳ್ಳುವ ಪ್ರಯತ್ನ ಈ ಬರಹಗಳ ಸಮುಚ್ಚಯ"
+                        android:textSize="14sp"
+                        android:lineSpacingExtra="1mm"
+                        android:textColor="@color/colorPrimaryDark"/>
+
+                </LinearLayout>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="16dp"
+                    android:gravity="center"
+                    android:text="Activity"
+                    android:textSize="16sp"
+                    android:textStyle="bold"
+                    android:textColor="@color/colorPrimaryDark"/>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    android:layout_margin="10dp"
+                    android:background="@drawable/custom_border">
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="10dp"
+                        android:text="Recently Published"
+                        android:textSize="14sp"
+                        android:textStyle="bold"
+                        android:textColor="@color/colorPrimaryDark"/>
+
+                    <androidx.recyclerview.widget.RecyclerView xmlns:app="http://schemas.android.com/apk/res-auto"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:id="@+id/recycler_latest"
+                        android:layout_margin="10dp">
+                    </androidx.recyclerview.widget.RecyclerView>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    android:layout_margin="10dp"
+                    android:background="@drawable/custom_border">
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="10dp"
+                        android:text="Latest Quotes"
+                        android:textSize="14sp"
+                        android:textStyle="bold"
+                        android:textColor="@color/colorPrimaryDark"/>
+
+                    <androidx.recyclerview.widget.RecyclerView xmlns:app="http://schemas.android.com/apk/res-auto"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:id="@+id/recycler_grid"
+                        android:layout_margin="10dp">
+                    </androidx.recyclerview.widget.RecyclerView>
+
+                </LinearLayout>
+
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal"
+                    android:id="@+id/exploreLayout"
+                    android:layout_margin="10dp"
+                    android:background="@drawable/custom_border">
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="10dp"
+                        android:text="Explore Our Categories for more Articles and Quotes!!"
+                        android:textSize="14sp"
+                        android:textStyle="bold"
+                        android:textColor="@color/colorPrimaryDark"/>
+
+
+                </LinearLayout>
+
+
+            </LinearLayout>
+
+            <!-- Note: A RecyclerView can also be used
+
+
+            <ProgressBar
+                android:id="@+id/progressBar_cyclic"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:minHeight="150dp"
+                android:minWidth="150dp"
+                android:layout_marginLeft="150dp"
+                android:layout_marginTop="300dp"
+                android:indeterminate="true"
+                android:indeterminateTint="@color/colorPrimaryDark"
+                />-->
+
+            <!--  <androidx.recyclerview.widget.RecyclerView xmlns:app="http://schemas.android.com/apk/res-auto"
+                  android:layout_width="match_parent"
+                  android:layout_height="match_parent"
+                  android:id="@+id/recycler_banner"
+                  android:layout_marginBottom="50dp"
+                  app:layout_behavior="@string/appbar_scrolling_view_behavior">
+              </androidx.recyclerview.widget.RecyclerView> -->
 
 
 

@@ -47,6 +47,12 @@
             android:iconTint="@color/colorPrimary"
             android:title="Sign Out"
             app:showAsAction="never"/>
+        <item
+            android:id="@+id/nav_signin"
+            android:icon="@drawable/ic_account_circle_black_24dp"
+            android:iconTint="@color/colorPrimary"
+            android:title="Login"
+            app:showAsAction="never"/>
 
     </group>
 

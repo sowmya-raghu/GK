@@ -16,6 +16,7 @@ import android.widget.Button;
 import android.widget.Toast;
 
 import com.android.gk.Common.common;
+import com.google.android.material.button.MaterialButton;
 import com.google.android.material.tabs.TabLayout;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -26,6 +27,7 @@ import java.util.TimerTask;
 public class MainActivity extends AppCompatActivity {
     private ViewPager viewPager;
     private Button button;
+    private MaterialButton exploreButton;
     private SliderPagerAdapter adapter;
     int mcount;
 
@@ -53,6 +55,7 @@ public class MainActivity extends AppCompatActivity {
         viewPager = findViewById(R.id.pagerIntroSlider);
         TabLayout tabLayout = findViewById(R.id.tabs);
         button = findViewById(R.id.button);
+        exploreButton = findViewById(R.id.exploreButton);
 
         firebaseAuth = FirebaseAuth.getInstance();
 
@@ -93,6 +96,14 @@ public class MainActivity extends AppCompatActivity {
                 Intent i = new Intent(MainActivity.this, LoginActivity.class);
                 startActivity(i);
 
+            }
+        });
+
+        exploreButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent explore = new Intent(MainActivity.this, HomeActivity.class);
+                startActivity(explore);
             }
         });
 

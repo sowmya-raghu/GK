@@ -111,6 +111,9 @@ public class CategoryActivity extends AppCompatActivity {
         recycler_category = (RecyclerView) findViewById(R.id.recycler_category);
         recycler_category.setHasFixedSize(true);
         layoutManager = new LinearLayoutManager(getApplicationContext());
+        recycler_category.setItemViewCacheSize(20);
+        recycler_category.setDrawingCacheEnabled(true);
+        recycler_category.setDrawingCacheQuality(View.DRAWING_CACHE_QUALITY_HIGH);
         recycler_category.setLayoutManager(layoutManager);
 
         options = new FirebaseRecyclerOptions.Builder<Category>().setQuery(fromDb.orderByChild("isDisplay").equalTo("true"), Category.class).build();
@@ -120,7 +123,7 @@ public class CategoryActivity extends AppCompatActivity {
             protected void onBindViewHolder(@NonNull final CategoryViewHolder categoryViewHolder, int i, @NonNull final Category category) {
                 categoryViewHolder.txtCategoryName.setText(category.getCategoryTitle());
                 categoryViewHolder.txtCategoryDesc.setText(category.getCategorySummary());
-                Picasso.with(getBaseContext()).load(category.getCategoryImage()).into(categoryViewHolder.txtCategoryImage);
+                Picasso.with(getBaseContext()).load(category.getCategoryImage()).fit().into(categoryViewHolder.txtCategoryImage);
                 progressBar.setVisibility(View.INVISIBLE);
 
                 //On Click of Explore Button
@@ -129,12 +132,12 @@ public class CategoryActivity extends AppCompatActivity {
                     public void onClick(View v) {
 
                         if (category.getCategoryTitle().equalsIgnoreCase("Quotes")) {
-                            //Intent i = new Intent(CategoryActivity.this, QuoteActivity.class);
-                           // startActivity(i);
+                            Intent i = new Intent(CategoryActivity.this, QuoteActivity.class);
+                            startActivity(i);
                         } else {
-                           // Intent i = new Intent(CategoryActivity.this, PublishedArticle.class);
-                          //  i.putExtra("CategoryName", category.getCategoryTitle());
-                          //  startActivity(i);
+                            Intent i = new Intent(CategoryActivity.this, PublishedPostActivity.class);
+                            i.putExtra("CategoryName", category.getCategoryTitle());
+                            startActivity(i);
                         }
 
                     }

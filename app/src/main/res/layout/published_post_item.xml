@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/card"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginLeft="10dp"
+    android:layout_marginRight="10dp"
+    app:cardElevation="4dp"
+    android:layout_marginTop="20dp"
+    android:clickable="true"
+    android:focusable="true"
+    app:cardCornerRadius="8dp">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:id="@+id/firstLayout">
+
+        <!-- Media -->
+        <ImageView
+            android:layout_width="150dp"
+            android:layout_height="100dp"
+            android:id="@+id/post_image"
+            android:layout_gravity="center"
+            android:scaleType="fitXY"
+            android:layout_margin="10dp"
+            android:contentDescription="quote"
+            />
+
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+           <TextView
+               android:layout_width="match_parent"
+               android:layout_height="wrap_content"
+               android:id="@+id/postTitle"
+               android:text="Post Title"
+               android:textColor="@color/colorPrimaryDark"
+               android:textSize="22sp"
+               android:layout_margin="10dp"
+               android:layout_alignParentStart="true"
+               android:layout_alignParentLeft="true"/>
+
+            <com.google.android.material.button.MaterialButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/continueReading"
+                android:text="Continue Reading"
+                android:textSize="12sp"
+                android:textColor="@color/colorPrimaryDark"
+                android:layout_below="@+id/postTitle"
+                android:layout_marginTop="20dp"
+                android:layout_marginLeft="60dp"
+                style="@style/Widget.MaterialComponents.Button.OutlinedButton"/>
+
+        </RelativeLayout>
+
+    </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/secondLayout"
+            android:orientation="horizontal"
+            android:layout_below="@+id/firstLayout">
+            <CheckBox
+                android:id="@+id/iconLike"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:button="@drawable/ic_favorite_border_black_24dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginLeft="14dp"
+                android:text="Like"
+                android:textSize="10sp"
+                app:buttonTint="@color/colorPrimaryDark"
+                />
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/iconComments"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                app:icon="@drawable/ic_mode_comment_black_24dp"
+                app:iconTint="@color/colorPrimaryDark"
+                android:text="Comments"
+                android:textSize="10sp"
+                android:textColor="@color/colorPrimaryDark"
+                android:layout_marginTop="10dp"
+                android:layout_marginLeft="5dp"
+                style="@style/Widget.MaterialComponents.Button.TextButton"
+                />
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/iconShare"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                app:icon="@drawable/ic_share_black_24dp"
+                app:iconTint="@color/colorPrimaryDark"
+                android:text="Share"
+                android:textSize="10sp"
+                android:textColor="@color/colorPrimaryDark"
+                android:layout_marginTop="10dp"
+                android:layout_marginLeft="8dp"
+                style="@style/Widget.MaterialComponents.Button.TextButton"
+                />
+
+        </LinearLayout>
+    </RelativeLayout>
+</com.google.android.material.card.MaterialCardView>
