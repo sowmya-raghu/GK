@@ -260,6 +260,8 @@ public class ViewPagerAdapter extends PagerAdapter {
                                BitmapDrawable mDrawable = (BitmapDrawable)imageView.getDrawable();
                                 Bitmap mBitmap = mDrawable.getBitmap();
 
+                                Log.d("Drawable Check", "Drawable"+mDrawable);
+                                Log.d("ImageView", "CheckImage"+imageView);
                                 String path = MediaStore.Images.Media.insertImage(context.getContentResolver(), mBitmap, "Image Description"+(currentTime = Calendar.getInstance().getTime()), null);
 
                                 Uri uri = Uri.parse(path);

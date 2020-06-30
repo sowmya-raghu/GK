@@ -50,7 +50,7 @@ import java.io.IOException;
 import java.io.OutputStreamWriter;
 import java.util.ArrayList;
 
-public class PublishedPostActivity extends AppCompatActivity {
+public class SearchPostActivity extends AppCompatActivity {
 
     FirebaseDatabase database;
     DatabaseReference fromDb;
@@ -97,22 +97,27 @@ public class PublishedPostActivity extends AppCompatActivity {
         toolBar.inflateMenu(R.menu.topbar_menu);
 
 
+        Menu menu = toolBar.getMenu();
+        MenuItem menuItem = menu.findItem(R.id.action_search);
+
+        menuItem.setVisible(false);
+
         toolBar.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
             @Override
             public boolean onMenuItemClick(MenuItem item) {
                 switch (item.getItemId()) {
                     case R.id.top_home:
-                        Intent home = new Intent(PublishedPostActivity.this, HomeActivity.class);
+                        Intent home = new Intent(SearchPostActivity.this, HomeActivity.class);
                         startActivity(home);
                         return true;
                     case R.id.top_profile:
-                        Intent profile = new Intent(PublishedPostActivity.this, ProfileSettingActivity.class);
+                        Intent profile = new Intent(SearchPostActivity.this, ProfileSettingActivity.class);
                         startActivity(profile);
                         return true;
                     case R.id.top_signout:
                         FirebaseAuth mAuth = FirebaseAuth.getInstance();
                         LoginManager.getInstance().logOut();
-                        Intent signoutIntent = new Intent(PublishedPostActivity.this, MainActivity.class);
+                        Intent signoutIntent = new Intent(SearchPostActivity.this, MainActivity.class);
                         startActivity(signoutIntent);
                         return true;
                 }
@@ -125,7 +130,7 @@ public class PublishedPostActivity extends AppCompatActivity {
         toolBar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent back = new Intent(PublishedPostActivity.this,CategoryActivity.class);
+                Intent back = new Intent(SearchPostActivity.this,CategoryActivity.class);
                 startActivity(back);
             }
         });
@@ -142,36 +147,35 @@ public class PublishedPostActivity extends AppCompatActivity {
 
         noPost = findViewById(R.id.noPost);
 
-
-        Menu menu = toolBar.getMenu();
-        MenuItem menuItem = menu.findItem(R.id.action_search);
-
-        final SearchView searchView = (SearchView) MenuItemCompat.getActionView(menuItem);
-
-        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
-            @Override
-            public boolean onQueryTextSubmit(String query) {
-                 Intent i = new Intent(PublishedPostActivity.this,SearchPostActivity.class);
-                 i.putExtra("Search",query);
-                startActivity(i);
-                return false;
-            }
-
-            @Override
-            public boolean onQueryTextChange(String newText) {
-                return false;
-            }
-        });
-
-
-
-        Intent cat = getIntent();
-        final String catName = cat.getStringExtra("CategoryName");
+        Intent intent = getIntent();
+        String searchText = intent.getStringExtra("Search");
 
 
         //Displaying Recycler view, data from database.
 
         fromDb = FirebaseDatabase.getInstance().getReference().child("Post");
+
+        Query queryHasdata = fromDb.orderByChild("postTitle").startAt(searchText).endAt(searchText + "\uf8ff");
+        queryHasdata.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                if(dataSnapshot.exists()) {
+                    progressBar.setVisibility(View.INVISIBLE);
+                    noPost.setVisibility(View.INVISIBLE);
+
+
+                }else{
+                    progressBar.setVisibility(View.INVISIBLE);
+                    noPost.setVisibility(View.VISIBLE);
+                    noPost.setText("No Articles found on this Topic!!");
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
 
 
 
@@ -186,37 +190,19 @@ public class PublishedPostActivity extends AppCompatActivity {
         recycler_post.setLayoutManager(layoutManager);
 
 
-        Query queryHasdata = fromDb.orderByChild("publishStatus_catName").equalTo("published_"+catName);
-        queryHasdata.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                if(dataSnapshot.exists()) {
-                    progressBar.setVisibility(View.INVISIBLE);
-                    noPost.setVisibility(View.INVISIBLE);
-                }else{
-                    progressBar.setVisibility(View.INVISIBLE);
-                    noPost.setVisibility(View.VISIBLE);
-                }
-            }
 
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-
-            }
-        });
-
-
-        options = new FirebaseRecyclerOptions.Builder<Post>().setQuery(fromDb.orderByChild("publishStatus_catName").equalTo("published_"+catName), Post.class).build();
+        options = new FirebaseRecyclerOptions.Builder<Post>().setQuery(fromDb.orderByChild("postTitle").startAt(searchText).endAt(searchText + "\uf8ff"), Post.class).build();
 
 
         adapter = new FirebaseRecyclerAdapter<Post, PublishedPostViewHolder>(options) {
             @Override
             protected void onBindViewHolder(@NonNull final PublishedPostViewHolder publishedPostViewHolder, int i, @NonNull final Post post) {
 
-                    noPost.setVisibility(View.INVISIBLE);
+                noPost.setVisibility(View.INVISIBLE);
 
+                if (post.getPostPublishStatus().equalsIgnoreCase("published")) {
                     Picasso.with(getBaseContext()).load(post.getPostImage()).fit().transform(new RoundedTransformation(20, 0)).into(publishedPostViewHolder.txtPostImage);
-
+                    publishedPostViewHolder.itemView.setVisibility(View.VISIBLE);
                     publishedPostViewHolder.txtPostTitle.setText(post.getPostTitle());
 
                     if (common.currentUser != null) {
@@ -321,7 +307,7 @@ public class PublishedPostActivity extends AppCompatActivity {
                     publishedPostViewHolder.commentBtn.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
-                            Intent comment = new Intent(PublishedPostActivity.this, CommentsActivity.class);
+                            Intent comment = new Intent(SearchPostActivity.this, CommentsActivity.class);
                             comment.putExtra("QuoteId", post.getPostId());
                             comment.putExtra("isPost", "true");
                             startActivity(comment);
@@ -331,11 +317,11 @@ public class PublishedPostActivity extends AppCompatActivity {
                     publishedPostViewHolder.shareBtn.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
-                            int applicationNameId = PublishedPostActivity.this.getApplicationInfo().labelRes;
-                            final String appPackageName = PublishedPostActivity.this.getPackageName();
+                            int applicationNameId = SearchPostActivity.this.getApplicationInfo().labelRes;
+                            final String appPackageName = SearchPostActivity.this.getPackageName();
                             Intent i = new Intent(Intent.ACTION_SEND);
                             i.setType("text/plain");
-                            i.putExtra(Intent.EXTRA_SUBJECT, PublishedPostActivity.this.getString(applicationNameId));
+                            i.putExtra(Intent.EXTRA_SUBJECT, SearchPostActivity.this.getString(applicationNameId));
                             String text = "Would recommend this application: ";
                             String link = "https://play.google.com/store/apps/details?id=" + appPackageName;
                             i.putExtra(Intent.EXTRA_TEXT, text + " " + link);
@@ -346,18 +332,21 @@ public class PublishedPostActivity extends AppCompatActivity {
                     publishedPostViewHolder.itemView.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
-                            Intent article = new Intent(PublishedPostActivity.this, SingleArticleActivity.class);
+                            Intent article = new Intent(SearchPostActivity.this, SingleArticleActivity.class);
                             article.putExtra("postId", post.getPostId());
                             startActivity(article);
                         }
                     });
+                }else{
+                    publishedPostViewHolder.itemView.setVisibility(View.INVISIBLE);
+                }
             }
 
             @NonNull
             @Override
             public PublishedPostViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
 
-                return new PublishedPostViewHolder(LayoutInflater.from(PublishedPostActivity.this).inflate(R.layout.published_post_item, parent, false));
+                return new PublishedPostViewHolder(LayoutInflater.from(SearchPostActivity.this).inflate(R.layout.published_post_item, parent, false));
 
             }
 

@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".SearchQuoteActivity">
+
+    <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/homeappbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        xmlns:app="http://schemas.android.com/apk/res-auto">
+
+
+        <com.google.android.material.appbar.MaterialToolbar
+            xmlns:app="http://schemas.android.com/apk/res-auto"
+            android:id="@+id/topAppBar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            app:title="@string/home_page_title"
+            android:backgroundTint="@color/colorPrimary"
+            app:titleTextColor="@color/colorWhite"
+            app:navigationIcon="@drawable/ic_arrow_back_black_24dp"
+            style="@style/Widget.MaterialComponents.Toolbar.Primary">
+
+        </com.google.android.material.appbar.MaterialToolbar>
+    </com.google.android.material.appbar.AppBarLayout>
+
+
+    <ProgressBar
+        android:id="@+id/progressBar_cyclic"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:minHeight="150dp"
+        android:minWidth="150dp"
+        android:layout_marginLeft="150dp"
+        android:layout_marginTop="300dp"
+        android:indeterminate="true"
+        android:indeterminateTint="@color/colorPrimaryDark"
+        />
+
+    <androidx.recyclerview.widget.RecyclerView xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/recycler_quote"
+        android:layout_marginTop="40dp"
+        android:layout_marginBottom="20dp"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
+    </androidx.recyclerview.widget.RecyclerView>
+
+
+
+
+</RelativeLayout>

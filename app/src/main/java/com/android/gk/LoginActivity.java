@@ -306,7 +306,7 @@ public class LoginActivity extends AppCompatActivity {
                             FirebaseUser users = firebaseAuth.getCurrentUser();
                             common.currentUser = users.getDisplayName();
                             User user = new User(firebaseAuth.getCurrentUser().getEmail(),"");
-                            FirebaseDatabase.getInstance().getReference("Users").child(
+                            FirebaseDatabase.getInstance().getReference("User").child(
                                     FirebaseAuth.getInstance().getCurrentUser().getUid()
                             ).setValue(user);
                             Intent homeIntent = new Intent(LoginActivity.this, HomeActivity.class);

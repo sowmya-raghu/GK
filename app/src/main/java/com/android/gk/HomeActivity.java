@@ -86,17 +86,32 @@ public class HomeActivity extends AppCompatActivity {
 
         getSupportActionBar().hide();
 
+
+        databaseEntry = FirebaseDatabase.getInstance().getReference();
+
         Toolbar toolBar = (Toolbar) findViewById(R.id.topAppBar);
 
         //Inflating the Menu on top of the toolbar
         toolBar.inflateMenu(R.menu.topbar_menu);
 
-        databaseEntry = FirebaseDatabase.getInstance().getReference();
+
+        Menu menu = toolBar.getMenu();
+        MenuItem menuItem = menu.findItem(R.id.action_search);
+
+        menuItem.setVisible(false);
 
         toolBar.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
             @Override
             public boolean onMenuItemClick(MenuItem item) {
                 switch (item.getItemId()) {
+                    case R.id.top_home:
+                        Intent home = new Intent(HomeActivity.this, HomeActivity.class);
+                        startActivity(home);
+                        return true;
+                    case R.id.top_profile:
+                        Intent profile = new Intent(HomeActivity.this, ProfileSettingActivity.class);
+                        startActivity(profile);
+                        return true;
                     case R.id.top_signout:
                         FirebaseAuth mAuth = FirebaseAuth.getInstance();
                         LoginManager.getInstance().logOut();
@@ -182,6 +197,10 @@ public class HomeActivity extends AppCompatActivity {
                     case R.id.nav_likequote:
                         Intent fav = new Intent(HomeActivity.this, FavouriteActivity.class);
                         startActivity(fav);
+                        return true;
+                    case R.id.nav_setting:
+                        Intent setting = new Intent(HomeActivity.this, ProfileSettingActivity.class);
+                        startActivity(setting);
                         return true;
                     case R.id.nav_signin:
                         Intent signin = new Intent(HomeActivity.this, LoginActivity.class);

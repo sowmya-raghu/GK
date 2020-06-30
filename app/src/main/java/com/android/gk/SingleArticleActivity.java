@@ -228,11 +228,11 @@ public class SingleArticleActivity extends AppCompatActivity {
                         } catch (IOException e) {
                             e.printStackTrace();
                         } finally {
-                            try {
+                           /* try {
                                 stream.close();
                             } catch (IOException e) {
                                 e.printStackTrace();
-                            }
+                            }*/
                         }
 
                         Toast.makeText(SingleArticleActivity.this, post.getPostTitle()+" Article saved under MyFiles/Internal Storage/Documents/Pklwrites folder",Toast.LENGTH_SHORT).show();

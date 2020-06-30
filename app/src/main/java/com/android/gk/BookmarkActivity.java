@@ -9,6 +9,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
+import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
@@ -76,20 +77,30 @@ public class BookmarkActivity extends AppCompatActivity {
 
         //Inflating the Menu on top of the toolbar
         toolBar.inflateMenu(R.menu.topbar_menu);
-        toolBar.setTitle("Posts");
+
+
+        Menu menu = toolBar.getMenu();
+        MenuItem menuItem = menu.findItem(R.id.action_search);
+
+        menuItem.setVisible(false);
+
         toolBar.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
             @Override
             public boolean onMenuItemClick(MenuItem item) {
                 switch (item.getItemId()) {
+                    case R.id.top_home:
+                        Intent home = new Intent(BookmarkActivity.this, HomeActivity.class);
+                        startActivity(home);
+                        return true;
+                    case R.id.top_profile:
+                        Intent profile = new Intent(BookmarkActivity.this, ProfileSettingActivity.class);
+                        startActivity(profile);
+                        return true;
                     case R.id.top_signout:
                         FirebaseAuth mAuth = FirebaseAuth.getInstance();
                         LoginManager.getInstance().logOut();
-                        mAuth.signOut();
                         Intent signoutIntent = new Intent(BookmarkActivity.this, MainActivity.class);
                         startActivity(signoutIntent);
-                        return true;
-
-                    case R.id.action_search:
                         return true;
                 }
                 return true;

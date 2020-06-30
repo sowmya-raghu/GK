@@ -32,6 +32,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
+import com.squareup.picasso.Callback;
 import com.squareup.picasso.Picasso;
 
 import java.io.File;
@@ -49,12 +50,14 @@ public class ImageSlider extends AppCompatActivity {
     ArrayList<String> imageUrls = new ArrayList<String>();
     ArrayList<String> quoteIds = new ArrayList<String>();
     String[] urlPaths, quoteFinalIds;
+    ImageView imageView;
 
    CheckBox likeBtn;
      MaterialButton saveBtn;
      MaterialButton shareBtn;
 
      ViewPager viewPager;
+     Bitmap mBitmap;
 Date currentTime;
      int mposition;
     int count=0;
@@ -79,9 +82,14 @@ Date currentTime;
         shareBtn = (MaterialButton) findViewById(R.id.share_image);
         viewPager = (ViewPager) findViewById(R.id.view_image_page);
 
+        imageView = new ImageView(ImageSlider.this);
+
+
+
 
         Log.d("Intent Id", "Quote From Intent"+quoteId);
         Query queryImage = fromDb.child("Quote");
+
 
         queryImage.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
@@ -90,6 +98,8 @@ Date currentTime;
 
                      final Quote quote = postSnapshot.getValue(Quote.class);
 
+
+                    Picasso.with(ImageSlider.this).load(quote.getQuoteImage()).fit().centerInside().into(imageView);
 
                      if(quoteId.equalsIgnoreCase(quote.getQuoteId())){
                          imageUrls.add(0,quote.getQuoteImage());
@@ -153,30 +163,10 @@ Date currentTime;
                         shareBtn.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View v) {
-                                ImageView imageView = new ImageView(ImageSlider.this);
-                                Picasso.with(ImageSlider.this).load(quote.getQuoteImage()).into(imageView);
-                                Log.d("ImageSlider", "Image url" + quote.getQuoteImage());
+
                                 //  container.addView(imageView);
-                                BitmapDrawable mDrawable = (BitmapDrawable) imageView.getDrawable();
-                                // Bitmap btmp = Bitmap.create(mDrawable.getBitmap());
-                                Bitmap mBitmap = Bitmap.createBitmap(mDrawable.getBitmap());
 
-                                String path = MediaStore.Images.Media.insertImage(getContentResolver(), mBitmap, "Image Description" + (currentTime = Calendar.getInstance().getTime()), null);
-
-                                Uri uri = Uri.parse(path);
-
-                                Intent share = new Intent(Intent.ACTION_SEND);
-
-                                // If you want to share a png image only, you can do:
-                                // setType("image/png"); OR for jpeg: setType("image/jpeg");
-                                share.setType("image/jpeg");
-
-
-                                // Uri uri = Uri.parse(quote.getQuoteImage());
-
-                                share.putExtra(Intent.EXTRA_STREAM, uri);
-
-                                startActivity(Intent.createChooser(share, "Share Image!"));
+                                shareFunction();
                             }
                         });
 
@@ -289,6 +279,29 @@ Date currentTime;
 
 
 
+    }
+
+    private void shareFunction() {
+
+        BitmapDrawable mDrawable = (BitmapDrawable)imageView.getDrawable();
+        Bitmap mBitmap = mDrawable.getBitmap();
+
+        String path = MediaStore.Images.Media.insertImage(getContentResolver(), mBitmap, "Image Description" + (currentTime = Calendar.getInstance().getTime()), null);
+
+        Uri uri = Uri.parse(path);
+
+        Intent share = new Intent(Intent.ACTION_SEND);
+
+        // If you want to share a png image only, you can do:
+        // setType("image/png"); OR for jpeg: setType("image/jpeg");
+        share.setType("image/jpeg");
+
+
+        // Uri uri = Uri.parse(quote.getQuoteImage());
+
+        share.putExtra(Intent.EXTRA_STREAM, uri);
+
+        startActivity(Intent.createChooser(share, "Share Image!"));
     }
 
     private void callAdapter(ArrayList<String> actualPath, ArrayList<String> quoteIds, final Quote quote) {

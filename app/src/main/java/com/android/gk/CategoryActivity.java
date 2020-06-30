@@ -2,7 +2,9 @@ package com.android.gk;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.SearchView;
 import androidx.appcompat.widget.Toolbar;
+import androidx.core.view.MenuItemCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -10,6 +12,7 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.view.LayoutInflater;
+import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
@@ -70,15 +73,23 @@ public class CategoryActivity extends AppCompatActivity {
 
         //Inflating the Menu on top of the toolbar
         toolBar.inflateMenu(R.menu.topbar_menu);
-        toolBar.setTitle("Explore Category");
+
+
         toolBar.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
             @Override
             public boolean onMenuItemClick(MenuItem item) {
                 switch (item.getItemId()) {
+                    case R.id.top_home:
+                        Intent home = new Intent(CategoryActivity.this, HomeActivity.class);
+                        startActivity(home);
+                        return true;
+                    case R.id.top_profile:
+                        Intent profile = new Intent(CategoryActivity.this, ProfileSettingActivity.class);
+                        startActivity(profile);
+                        return true;
                     case R.id.top_signout:
                         FirebaseAuth mAuth = FirebaseAuth.getInstance();
                         LoginManager.getInstance().logOut();
-                        mAuth.signOut();
                         Intent signoutIntent = new Intent(CategoryActivity.this, MainActivity.class);
                         startActivity(signoutIntent);
                         return true;
@@ -103,6 +114,26 @@ public class CategoryActivity extends AppCompatActivity {
 
         progressBar = (ProgressBar) findViewById(R.id.progressBar_cyclic);
         progressBar.setProgress(20);
+
+        Menu menu = toolBar.getMenu();
+        MenuItem menuItem = menu.findItem(R.id.action_search);
+
+        final SearchView searchView = (SearchView) MenuItemCompat.getActionView(menuItem);
+
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                Intent i = new Intent(CategoryActivity.this,SearchPostActivity.class);
+                i.putExtra("Search",query);
+                startActivity(i);
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                return false;
+            }
+        });
 
         //Displaying Recycler view, data from database.
 

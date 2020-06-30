@@ -2,56 +2,36 @@ package com.android.gk;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.SearchView;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.graphics.drawable.RoundedBitmapDrawable;
 import androidx.core.graphics.drawable.RoundedBitmapDrawableFactory;
-import androidx.core.view.MenuItemCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.app.Application;
 import android.app.DownloadManager;
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.graphics.Color;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
-import android.media.MediaScannerConnection;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
 import android.util.Log;
-import android.util.SparseArray;
 import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.CompoundButton;
-import android.widget.ImageView;
 import android.widget.ProgressBar;
-import android.widget.TextView;
-import android.widget.Toast;
 
-import com.android.gk.CategoryActivity;
 import com.android.gk.Common.common;
-import com.android.gk.MainActivity;
 import com.android.gk.Model.Favourite;
 import com.android.gk.Model.Quote;
-import com.android.gk.R;
 import com.android.gk.ViewHolder.QuoteViewHolder;
-import com.facebook.login.LoginManager;
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.firebase.ui.database.FirebaseRecyclerOptions;
-import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -64,22 +44,17 @@ import com.google.firebase.storage.StorageReference;
 import com.squareup.picasso.Picasso;
 
 import java.io.File;
-import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.Locale;
 
+public class SearchQuoteActivity extends AppCompatActivity {
 
-
-public class QuoteActivity extends AppCompatActivity {
-
-TextView noPost;
-    Date currentTime;
     FirebaseDatabase database;
     DatabaseReference fromDb;
-
     DatabaseReference databaseEntry;
+    Date currentTime;
+
     RecyclerView recycler_quote;
     RecyclerView.LayoutManager layoutManager;
 
@@ -106,52 +81,29 @@ TextView noPost;
         adapter.stopListening();
     }
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_quote);
-
+        setContentView(R.layout.activity_search_quote);
 
         getSupportActionBar().hide();
 
         Toolbar toolBar = (Toolbar) findViewById(R.id.topAppBar);
 
         //Inflating the Menu on top of the toolbar
-        toolBar.inflateMenu(R.menu.topbar_menu);
-
-
-        toolBar.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
-            @Override
-            public boolean onMenuItemClick(MenuItem item) {
-                switch (item.getItemId()) {
-                    case R.id.top_home:
-                        Intent home = new Intent(QuoteActivity.this, HomeActivity.class);
-                        startActivity(home);
-                        return true;
-                    case R.id.top_profile:
-                        Intent profile = new Intent(QuoteActivity.this, ProfileSettingActivity.class);
-                        startActivity(profile);
-                        return true;
-                    case R.id.top_signout:
-                        FirebaseAuth mAuth = FirebaseAuth.getInstance();
-                        LoginManager.getInstance().logOut();
-                        Intent signoutIntent = new Intent(QuoteActivity.this, MainActivity.class);
-                        startActivity(signoutIntent);
-                        return true;
-                }
-                return true;
-            }
-        });
-
+        //  toolBar.inflateMenu(R.menu.topbar_menu);
+        toolBar.setTitle("Quotes");
 
 //pressing backbutton takes to home page
         toolBar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent back = new Intent(QuoteActivity.this, CategoryActivity.class);
+                Intent back = new Intent(SearchQuoteActivity.this,QuoteActivity.class);
                 startActivity(back);
             }
         });
+
 
 
 
@@ -162,30 +114,10 @@ TextView noPost;
         progressBar = (ProgressBar)findViewById(R.id.progressBar_cyclic);
         progressBar.setProgress(20);
 
-        noPost = findViewById(R.id.noPost);
 
 
-        Menu menu = toolBar.getMenu();
-        MenuItem menuItem = menu.findItem(R.id.action_search);
-
-        final SearchView searchView = (SearchView) MenuItemCompat.getActionView(menuItem);
-
-        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
-            @Override
-            public boolean onQueryTextSubmit(String query) {
-                Intent i = new Intent(QuoteActivity.this,SearchQuoteActivity.class);
-                i.putExtra("Search",query);
-                startActivity(i);
-                return false;
-            }
-
-            @Override
-            public boolean onQueryTextChange(String newText) {
-                return false;
-            }
-        });
-
-
+        Intent i = getIntent();
+        String searchText = i.getStringExtra("Search");
         //Displaying Recycler view, data from database.
 
         fromDb = FirebaseDatabase.getInstance().getReference().child("Quote");
@@ -195,39 +127,18 @@ TextView noPost;
         layoutManager = new LinearLayoutManager(getApplicationContext());
         ((LinearLayoutManager) layoutManager).setReverseLayout(true);
         ((LinearLayoutManager) layoutManager).setStackFromEnd(true);
-        recycler_quote.setItemViewCacheSize(20);
-        recycler_quote.setDrawingCacheEnabled(true);
-        recycler_quote.setDrawingCacheQuality(View.DRAWING_CACHE_QUALITY_HIGH);
         recycler_quote.setLayoutManager(layoutManager);
 
-        options = new FirebaseRecyclerOptions.Builder<Quote>().setQuery(fromDb, Quote.class).build();
-
-
-        final Query queryHasdata = fromDb;
-        queryHasdata.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                if(dataSnapshot.exists()) {
-                    progressBar.setVisibility(View.INVISIBLE);
-                    noPost.setVisibility(View.INVISIBLE);
-                }else{
-                    progressBar.setVisibility(View.INVISIBLE);
-                    noPost.setVisibility(View.VISIBLE);
-                }
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-
-            }
-        });
+        options = new FirebaseRecyclerOptions.Builder<Quote>().setQuery(fromDb.orderByChild("quoteContent").startAt(searchText).endAt(searchText + "\uf8ff"), Quote.class).build();
 
         adapter = new FirebaseRecyclerAdapter<Quote, QuoteViewHolder>(options) {
+
+
+
             @Override
             protected void onBindViewHolder(@NonNull final QuoteViewHolder quoteViewHolder, int i, @NonNull final Quote quote) {
                 //ImageView quoteImage = findViewById(R.id.quote_image);
 
-              //  Log.d("User details", "Name"+common.currentUser);
                 Resources res = getResources();
                 Bitmap src = BitmapFactory.decodeResource(res,R.drawable.quote1final );
                 RoundedBitmapDrawable dr =
@@ -241,7 +152,6 @@ TextView noPost;
 
 
                 if(common.currentUser!=null) {
-                    Log.d("Checking", "Inside 1"+common.currentUser);
                     databaseEntry = FirebaseDatabase.getInstance().getReference("Favourite");
                     Query queryFav = databaseEntry.child(FirebaseAuth.getInstance().getCurrentUser().getUid()).child(quote.getQuoteId());
 
@@ -282,7 +192,7 @@ TextView noPost;
                 quoteViewHolder.commentsBox.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        Intent comment = new Intent(QuoteActivity.this, com.android.gk.CommentsActivity.class);
+                        Intent comment = new Intent(SearchQuoteActivity.this, com.android.gk.CommentsActivity.class);
                         comment.putExtra("QuoteId", quote.getQuoteId());
                         comment.putExtra("isPost", "false");
                         startActivity(comment);
@@ -296,7 +206,6 @@ TextView noPost;
                     public void onClick(View v) {
 
                         if(common.currentUser!=null) {
-                            Log.d("Checking", "Inside 2"+common.currentUser);
                             Query queryFav = databaseEntry.child(FirebaseAuth.getInstance().getCurrentUser().getUid()).child(quote.getQuoteId());
 
                             queryFav.addListenerForSingleValueEvent(new ValueEventListener() {
@@ -333,12 +242,10 @@ TextView noPost;
                                 }
                             });
                         }else{
-                            quoteViewHolder.likeBox.setButtonDrawable(R.drawable.ic_favorite_black_24dp);
-                            quoteViewHolder.likeBox.setChecked(true);
                             Integer likes = Integer.parseInt(quote.getNumberOfLikes());
                             likes = likes + 1;
                             fromDb.child(quote.getQuoteId()).child("numberOfLikes").setValue(String.valueOf(likes));
-
+                            quoteViewHolder.likeBox.setButtonDrawable(R.drawable.ic_favorite_black_24dp);
                         }
 
                         //Intent intent = new Intent(QuoteActivity.this,QuoteActivity.class);
@@ -409,10 +316,10 @@ TextView noPost;
 
 
 
-               quoteViewHolder.itemView.setOnClickListener(new View.OnClickListener() {
+                quoteViewHolder.itemView.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        Intent i = new Intent(QuoteActivity.this, ImageSlider.class);
+                        Intent i = new Intent(SearchQuoteActivity.this, ImageSlider.class);
                         i.putExtra("quoteId",quote.getQuoteId());
                         startActivity(i);
                     }
@@ -422,7 +329,7 @@ TextView noPost;
             @NonNull
             @Override
             public QuoteViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-                return new QuoteViewHolder(LayoutInflater.from(QuoteActivity.this).inflate(R.layout.quote_item, parent, false));
+                return new QuoteViewHolder(LayoutInflater.from(SearchQuoteActivity.this).inflate(R.layout.quote_item, parent, false));
             }
 
         };
@@ -431,6 +338,4 @@ TextView noPost;
         adapter.notifyDataSetChanged();
 
     }
-
-
 }
