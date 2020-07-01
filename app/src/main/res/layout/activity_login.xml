@@ -140,21 +140,39 @@
         android:id="@+id/socialMedia"
         android:layout_below="@+id/forgotpwd"
         android:layout_margin="10dp"
-        android:orientation="vertical"
+        android:orientation="horizontal"
         android:gravity="center">
 
 
-        <com.facebook.login.widget.LoginButton
-            android:id="@+id/login_fb"
-            android:layout_width="wrap_content"
+        <com.google.android.material.button.MaterialButton
+            xmlns:fb="http://schemas.android.com/apk/res-auto"
+            android:layout_width="145dp"
             android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"/>
+            android:id="@+id/fblogin_button"
+            android:layout_marginTop="20dp"
+            app:icon="@drawable/facebooklogo"
+            app:iconSize="30dp"
+            app:iconTint="@color/colorWhite"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+            android:backgroundTint="@color/colorPrimaryDark"
+            android:text="Login"
+            android:textColor="@color/colorWhite"
+            android:textAllCaps="true"/>
 
-        <com.google.android.gms.common.SignInButton
-            android:id="@+id/sign_in_button"
-            android:layout_width="193dp"
-            android:layout_height="35dp"
-            android:layout_marginTop="20dp"/>
+        <com.google.android.material.button.MaterialButton
+            android:layout_width="145dp"
+            android:layout_height="wrap_content"
+            android:id="@+id/gmailLogin"
+            android:layout_marginTop="20dp"
+            android:layout_marginLeft="10dp"
+            app:icon="@drawable/gmaillogo"
+            app:iconSize="30dp"
+            app:iconTint="#eeeeee"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+            android:backgroundTint="@color/colorPrimaryDark"
+            android:text="Login"
+            android:textColor="@color/colorWhite"
+            android:textAllCaps="true"/>
 
     </LinearLayout>
 

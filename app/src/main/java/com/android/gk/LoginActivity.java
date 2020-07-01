@@ -52,6 +52,8 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
+import java.util.Arrays;
+
 public class LoginActivity extends AppCompatActivity {
 
     public TextInputLayout loginEmailId, logInpasswd;
@@ -193,25 +195,33 @@ public class LoginActivity extends AppCompatActivity {
         // Initialize Facebook Login button
         LoginManager.getInstance().logOut();
         mCallbackManager = CallbackManager.Factory.create();
-        LoginButton loginButton = findViewById(R.id.login_fb);
-        loginButton.setReadPermissions("email", "public_profile", "user_friends");
-        loginButton.registerCallback(mCallbackManager, new FacebookCallback<LoginResult>() {
+        MaterialButton loginButton = findViewById(R.id.fblogin_button);
+        loginButton.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onSuccess(LoginResult loginResult) {
-                Log.d("Fb", "facebook:onSuccess:" + loginResult);
-                handleFacebookAccessToken(loginResult.getAccessToken());
-            }
+            public void onClick(View v) {
 
-            @Override
-            public void onCancel() {
-                Log.d("Fb", "facebook:onCancel");
-                // ...
-            }
 
-            @Override
-            public void onError(FacebookException error) {
-                Log.d("Fb", "facebook:onError", error);
-                // ...
+                LoginManager.getInstance().logInWithReadPermissions(LoginActivity.this, Arrays.asList("user_photos", "email", "public_profile", "user_posts"));
+                LoginManager.getInstance().registerCallback(mCallbackManager, new FacebookCallback<LoginResult>() {
+                    @Override
+                    public void onSuccess(LoginResult loginResult) {
+                        Log.d("", "facebook:onSuccess:" + loginResult);
+                        handleFacebookAccessToken(loginResult.getAccessToken());
+                    }
+
+                    @Override
+                    public void onCancel() {
+                        Log.d("", "facebook:onCancel");
+                        // ...
+                    }
+
+                    @Override
+                    public void onError(FacebookException error) {
+                        Log.d("", "facebook:onError", error);
+                        // ...
+                    }
+                });
+
             }
         });
 // ...
@@ -224,7 +234,7 @@ public class LoginActivity extends AppCompatActivity {
 
         mGoogleSignInClient = GoogleSignIn.getClient(this,gso);
 
-        SignInButton signIn = findViewById(R.id.sign_in_button);
+        MaterialButton signIn = findViewById(R.id.gmailLogin);
 
         signIn.setOnClickListener(new View.OnClickListener() {
             @Override
